@@ -12,4 +12,4 @@ COPY requiremets.txt ${requiremets}
 RUN pip3 install -r requiremets.txt 
 
 
-WORKDIR /home/apirest/code
+WORKDIR /home/api_rest/code
