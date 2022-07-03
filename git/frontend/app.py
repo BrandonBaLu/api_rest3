@@ -11,7 +11,7 @@ urls = (
     '/validate/', 'Validate',
 )
 app = web.application(urls, globals())
-render = web.template.render("templates/", base="layout")
+render = web.template.render("templates/")
 
 class index:
     def GET(self):
