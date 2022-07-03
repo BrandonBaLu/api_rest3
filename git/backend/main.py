@@ -1,33 +1,22 @@
-from fastapi import FastAPI
-import sqlite3 
+from lib2to3.pytree import Base
+from typing import Union
+from typing_extensions import Self
+from urllib import response
+from urllib.request import Request
+from fastapi import Depends, FastAPI, HTTPException, status
 from typing import List
-from pydantic import BaseModel 
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
+from pydantic import BaseModel
+import sqlite3
+import os
+import hashlib
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Union  
-
-import hashlib  # importa la libreria hashlib 
-import os 
-from fastapi import Depends, FastAPI, HTTPException, status 
-from fastapi.security import HTTPBasic, HTTPBasicCredentials 
 
 app = FastAPI() 
 
 DATABASE_URL = os.path.join("sql/clientes.sqlite") 
 
 security = HTTPBasic() 
-
-origins = [
-    "http://localhost:8080",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 
 
 class Respuesta (BaseModel) :  
@@ -37,6 +26,22 @@ class Cliente (BaseModel):
     id_cliente: int  
     nombre: str  
     email: str  
+
+
+origin = [
+    "https://8080-brandonbalu-apirest3-6kdpz8c3moh.ws-us47.gitpod.io/",
+   
+    
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins="*",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 
 @app.get("/", response_model=Respuesta) 
