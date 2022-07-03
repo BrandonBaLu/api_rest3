@@ -18,7 +18,6 @@ security = HTTPBasic()
 
 origins = [
     "http://localhost:8080",
-    "http://127.0.0.1:3000",
 ]
 
 app.add_middleware(
@@ -80,7 +79,7 @@ async def get_clientes(level: int = Depends(get_current_level)):
         )
 
 @app.get("/clientes/{id}", response_model=List[Cliente],status_code=status.HTTP_202_ACCEPTED,
-summary="Regresa una lista de usuarios",description="Regresa una lista de usuarios")
+summary="Regresa una lista de un usuario",description="Regresa una lista de usuarios")
 async def get_clientesid(level: int = Depends(get_current_level),id_cliente: int=0):
     if level == 1: 
         with sqlite3.connect(DATABASE_URL) as connection:
