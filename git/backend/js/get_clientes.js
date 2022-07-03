@@ -1,27 +1,26 @@
-function getProductos(offset) {
+function getClientes(offset) {
     var request = new XMLHttpRequest();
     //Accede a la session de la pagina
     username= sessionStorage.getItem("username");
     password= sessionStorage.getItem("password");
-   
-    request.open('GET', 'http://127.0.0.1:8000/productos/?offset='+offset+'&limit=10', true);
+
+    //https://8000-brandonbalu-apirest3-6kdpz8c3moh.ws-us47.gitpod.io/clientes/    
+    request.open('GET', 'http://127.0.0.1:8000/clientes/?offset='+offset+'&limit=10', true);
     request.setRequestHeader("Accept", "application/json");
-    request.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password))
+    request.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password))  
+    request.setRequestHeader("Authorization", "Basic " + btoa("username:user"));
     request.setRequestHeader("Content-Type", "application/json");
 
-    const  tabla   = document.getElementById("tabla_productos");
+    const  tabla   = document.getElementById("tabla_clientes");
 
     var tblBody = document.createElement("tbody");
     var tblHead = document.createElement("thead");
 
     tblHead.innerHTML = `
         <tr>
-            <th>Opciones</th>
-            <th>Actualizar</th>
-            <th>Borrar</th>
-            <th>Sku</th>
-            <th>Producto</th>
-            <th>Precio</th>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
         </tr>`;
 
     request.onload = () => {
@@ -41,20 +40,20 @@ function getProductos(offset) {
             console.log(json);
             for (let i = 0; i < json.length; i++) {
                 var tr = document.createElement('tr');
-                var get_producto = document.createElement('td');
-                var sku = document.createElement('td');
-                var producto = document.createElement('td');
-                var precio = document.createElement('td');
+                var get_clientes = document.createElement('td');
+                var nombre = document.createElement('td');
+                var email = document.createElement('td');
+                
 
-                get_producto.innerHTML = "<a href='\\producto\\get\\"+json[i].sku+"'>Ver</a>";
-                sku.innerHTML = json[i].sku;
-                producto.innerHTML = json[i].producto;
-                precio.innerHTML = json[i].precio;
+                get_clientes.innerHTML = "<a href='\\clientes\\get\\"+json[i].nombre+"'>Ver</a>";
+                nombre.innerHTML = json[i].nombre;
+                email.innerHTML = json[i].email;
+                
 
-                tr.appendChild(get_producto);
-                tr.appendChild(sku);
-                tr.appendChild(producto);
-                tr.appendChild(precio);
+                tr.appendChild(get_clientes);
+                tr.appendChild(nombre);
+                tr.appendChild(email);
+                
                 
                 tblBody.appendChild(tr);
             }

@@ -8,13 +8,14 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials 
 from pydantic import BaseModel 
 from typing import Union  
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI() 
 
 DATABASE_URL = os.path.join("sql/clientes.sqlite") 
 
 security = HTTPBasic() 
-from fastapi.middleware.cors import CORSMiddleware
+
 
 
 
@@ -69,7 +70,7 @@ def get_current_level(credentials: HTTPBasicCredentials = Depends(security)):
 
 @app.get("/clientes/", response_model=List[Cliente],status_code=status.HTTP_202_ACCEPTED,
 summary="Regresa una lista de usuarios",description="Regresa una lista de usuarios")
-async def clientes(level: int = Depends(get_current_level)):
+async def get_clientes(level: int = Depends(get_current_level)):
     if level == 1: 
         with sqlite3.connect(DATABASE_URL) as connection:
             connection.row_factory = sqlite3.Row
