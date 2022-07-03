@@ -1,19 +1,25 @@
 from operator import index
 import web
-render= web.template.render("templates")
+
 urls = (
     '/', 'index',
-    '/get_clietes', 'get_clietes',
+    "/clietes/get/(.*)", "Clientes",
+    "/clietes/get/(.*)", "GetClientes",
+    "/clietes/post/(.*)", "PostClientes",
+    "/clietes/put/(.*)", "PutClientes",
+    "/clietes/delete/(.*)", "DeleteClientes",
+    '/validate/', 'Validate',
 )
 app = web.application(urls, globals())
+render = web.template.render("templates/", base="layout")
 
 class index:
     def GET(self):
         return render.index()
 
-class get_clietes:
+class Validate:
     def GET(self):
-        return render.get_clietes()
+        return render.validate()
 
            
 if __name__ == "__main__":

@@ -1,9 +1,16 @@
 function getClientes(offset) {
-    var request = new XMLHttpRequest();
-    //Accede a la session de la pagina
-    username= sessionStorage.getItem("username");
-    password= sessionStorage.getItem("password");
 
+    var query  = window.location.search.substring(1);
+
+    //Accede a la session de la pagina
+    var username= sessionStorage.getItem("username");
+    var password= sessionStorage.getItem("password");
+
+    console.log("Username: " + username)
+
+    var request = new XMLHttpRequest();
+
+    
     //https://8000-brandonbalu-apirest3-6kdpz8c3moh.ws-us47.gitpod.io/clientes/    
     request.open('GET', 'http://127.0.0.1:8000/clientes/?offset='+offset+'&limit=10', true);
     request.setRequestHeader("Accept", "application/json");

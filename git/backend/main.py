@@ -1,23 +1,20 @@
-# FastAPI and Javascript DOM - Cheat Sheet :)
-#CORS (Cross-Origin Resource Sharing): CORS or "Cross-Origin Resource Sharing" refers to the situations when a frontend running in a browser has JavaScript code that communicates with a backend, and the backend is in a different "origin" than the frontend.
-import hashlib  # importa la libreria hashlib 
+from fastapi import FastAPI
 import sqlite3 
+from typing import List
+from pydantic import BaseModel 
+from fastapi.middleware.cors import CORSMiddleware
+from typing import Union  
+
+import hashlib  # importa la libreria hashlib 
 import os 
-from typing import List 
 from fastapi import Depends, FastAPI, HTTPException, status 
 from fastapi.security import HTTPBasic, HTTPBasicCredentials 
-from pydantic import BaseModel 
-from typing import Union  
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI() 
 
 DATABASE_URL = os.path.join("sql/clientes.sqlite") 
 
 security = HTTPBasic() 
-
-
-
 
 origins = [
     "http://localhost:8080",
@@ -33,9 +30,6 @@ app.add_middleware(
 )
 
 
-class Usuarios(BaseModel): 
-    username: str 
-    level: int 
 
 class Respuesta (BaseModel) :  
     message: str  
